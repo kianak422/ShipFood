@@ -1,0 +1,89 @@
+@model ShipFood.API.Models.TbMonAn
+@{
+    ViewData["Title"] = Model.Tenmon;
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Chi tiết sản phẩm</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" href="/Home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="/Home/DanhMuc">Menu</a></li>
+                <li class="breadcrumb-item text-dark active" aria-current="page">@Model.Tenmon</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Product Detail Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                    @if (Model.Hinhanh != null && (Model.Hinhanh.StartsWith("/") || Model.Hinhanh.StartsWith("http")))
+                    {
+                         <img class="img-fluid w-100" src="@Model.Hinhanh" alt="@Model.Tenmon">
+                    }
+                    else
+                    {
+                         <img class="img-fluid w-100" src="@(Model.Hinhanh != null ? "/uploads/" + Model.Hinhanh : "/home/img/no-image.jpg")" alt="@Model.Tenmon">
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <h1 class="display-5 mb-4">@Model.Tenmon</h1>
+                <p class="mb-4">@Model.Mota</p>
+                <p class="mb-4"><i class="fa fa-check text-primary me-3"></i>Đảm bảo vệ sinh an toàn thực phẩm</p>
+                <p class="mb-4"><i class="fa fa-check text-primary me-3"></i>Giao hàng nhanh chóng</p>
+                <h3 class="text-primary mb-4">Giá: @Model.Giatien.ToString("N0") đ</h3>
+                
+                <form action="/Cart/ThemMonAn" method="get">
+                    <input type="hidden" name="maMonAn" value="@Model.Mamon" />
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="input-group quantity me-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-minus rounded-circle bg-light border" onclick="decrementValue()">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" id="quantityInput" name="soLuong" class="form-control text-center border-0" value="1" readonly>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-plus rounded-circle bg-light border" onclick="incrementValue()">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">
+                            <i class="fa fa-shopping-bag me-2"></i>Thêm vào giỏ
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product Detail End -->
+
+@section Scripts {
+    <script>
+        function incrementValue() {
+            var value = parseInt(document.getElementById('quantityInput').value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            document.getElementById('quantityInput').value = value;
+        }
+
+        function decrementValue() {
+            var value = parseInt(document.getElementById('quantityInput').value, 10);
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                value--;
+                document.getElementById('quantityInput').value = value;
+            }
+        }
+    </script>
+}

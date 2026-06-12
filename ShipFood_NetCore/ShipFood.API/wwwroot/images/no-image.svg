@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+  <circle cx="200" cy="120" r="40" fill="#6c757d"/>
+  <path d="M160 160 Q200 140 240 160 L240 180 L160 180 Z" fill="#6c757d"/>
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6c757d">
+    Không có hình ảnh
+  </text>
+</svg>

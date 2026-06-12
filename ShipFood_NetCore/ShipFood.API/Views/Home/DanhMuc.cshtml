@@ -1,0 +1,78 @@
+@model List<ShipFood.API.Models.TbMonAn>
+@{
+    ViewData["Title"] = "Menu ẩm thực";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Menu ẩm thực</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" href="/Home">Trang chủ</a></li>
+                <li class="breadcrumb-item text-dark active" aria-current="page">Menu</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Product Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-6">
+                <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                    <h1 class="display-5 mb-3">Thực đơn hôm nay</h1>
+                    <p>Khám phá những món ăn ngon, hấp dẫn được chế biến từ những nguyên liệu tươi ngon nhất.</p>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active">
+                <div class="row g-4">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp h-100 mb-4" data-wow-delay="0.1s">
+                                <div class="product-item h-100 d-flex flex-column">
+                                    <div class="position-relative bg-light overflow-hidden">
+                                        @if (item.Hinhanh != null && (item.Hinhanh.StartsWith("/") || item.Hinhanh.StartsWith("http")))
+                                        {
+                                            <img class="img-fluid w-100" src="@item.Hinhanh" alt="@item.Tenmon">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid w-100" src="@(!string.IsNullOrEmpty(item.Hinhanh) ? item.Hinhanh : "/home/img/no-image.jpg")" alt="@item.Tenmon">
+                                        }
+                                        <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Mới</div>
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <a class="d-block h5 mb-2" href="/Home/ChiTiet?id=@item.Mamon">@item.Tenmon</a>
+                                        <span class="text-primary me-1">@item.Giatien.ToString("N0") đ</span>
+                                    </div>
+                                    <div class="d-flex border-top mt-auto">
+                                        <small class="w-50 text-center border-end py-2">
+                                            <a class="text-body" href="/Home/ChiTiet?id=@item.Mamon"><i class="fa fa-eye text-primary me-2"></i>Xem chi tiết</a>
+                                        </small>
+                                        <small class="w-50 text-center py-2">
+                                            <a class="text-body" href="/Cart/ThemMonAn?maMonAn=@item.Mamon&soLuong=1"><i class="fa fa-shopping-bag text-primary me-2"></i>Thêm vào giỏ</a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else 
+                    {
+                        <div class="col-12 text-center">
+                            <p>Không tìm thấy món ăn nào phù hợp.</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product End -->
