@@ -26,12 +26,12 @@ namespace ShipFood.API.Controllers
                 // Xử lý sắp xếp
                monAnList = sortOrder switch
                 {
-                    "featured" => monAnList.OrderByDescending(m => m.Noibat),
-                    "bestseller" => monAnList.OrderByDescending(m => m.Soluongban),
-                    "discount" => monAnList.OrderByDescending(m => m.Phantramgiam),
-                    "new" => monAnList.OrderByDescending(m => m.Ngaytao),
-                    "price_asc" => monAnList.OrderBy(m => m.Giatien),
-                    "price_desc" => monAnList.OrderByDescending(m => m.Giatien),
+                    "featured" => monAnList.OrderByDescending(m => m.Noibat).ToList(),
+                    "bestseller" => monAnList.OrderByDescending(m => m.Soluongban).ToList(),
+                    "discount" => monAnList.OrderByDescending(m => m.Phantramgiam).ToList(),
+                    "new" => monAnList.OrderByDescending(m => m.Ngaytao).ToList(),
+                    "price_asc" => monAnList.OrderBy(m => m.Giatien).ToList(),
+                    "price_desc" => monAnList.OrderByDescending(m => m.Giatien).ToList(),
                     _ => monAnList
                 };
                 

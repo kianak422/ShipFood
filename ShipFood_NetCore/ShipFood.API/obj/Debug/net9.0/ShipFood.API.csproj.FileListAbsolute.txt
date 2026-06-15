@@ -171,6 +171,7 @@ E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\S
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.MvcApplicationPartsAssemblyInfo.cache
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.RazorAssemblyInfo.cache
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.RazorAssemblyInfo.cs
+E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.sourcelink.json
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\rjimswa.dswa.cache.json
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
@@ -2267,4 +2268,3 @@ E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\r
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.pdb
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.genruntimeconfig.cache
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ref\ShipFood.API.dll
-E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.sourcelink.json

@@ -28,6 +28,47 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-3"></div>
+                    <form method="get" id="sortForm">
+
+                        <input type="hidden"
+                               name="txtSearch"
+                               value="@Context.Request.Query["txtSearch"]"/>
+
+                        <select class="form-select"
+                                name="sortOrder"
+                                onchange="this.form.submit();">
+
+                            <option value="">Sắp xếp theo</option>
+
+                             <option value="featured">
+                                    Nổi bật
+                            </option>
+
+                             <option value="bestseller">
+                                    Bán chạy
+                            </option>
+
+                             <option value="discount">
+                                    Giảm giá
+                            </option>
+
+                             <option value="new">
+                                    Mới nhất
+                            </option>
+
+                             <option value="price_asc">
+                                    Giá tăng dần
+                            </option>
+
+                             <option value="price_desc">
+                                    Giá giảm dần
+                            </option>
+
+                        </select>
+
+                    </form>
+                </div>
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
