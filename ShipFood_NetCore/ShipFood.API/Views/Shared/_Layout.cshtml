@@ -197,5 +197,9 @@
     <script src="/home/js/main.js"></script>
     
     @await RenderSectionAsync("Scripts", required: false)
+       <!-- Floating Chat Partial - THÊM MỚI -->
+   @await Html.PartialAsync("_FloatingChat")
+
+   @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
