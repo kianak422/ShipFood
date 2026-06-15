@@ -30,7 +30,21 @@ namespace ShipFood.API.Models
         [Column("madanhmuc")]
         public int? Madanhmuc { get; set; }
 
+        [Column("soluongban")]
+        public int Soluongban { get; set; }
+
+        [Column("phantramgiam")]
+        public int Phantramgiam { get; set; }
+
+        [Column("ngaytao")]
+        public DateTime Ngaytao { get; set; }
+
+        [Column("noibat")]
+        public bool Noibat { get; set; }
+
         [NotMapped]
+        [Column("soluong")]
+        [Required]
         public int SoLuong { get; set; }
 
         // Mẫu Visitor: Cho phép "Khách" (Visitor) viếng thăm để thực hiện tính toán

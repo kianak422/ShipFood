@@ -80,6 +80,47 @@
                 <div class="col-lg-4 text-start">
                     <h1>Món ăn phổ biến</h1>
                 </div>
+                <div class="col-lg-3"></div>
+                    <form method="get" id="sortForm">
+
+                        <input type="hidden"
+                               name="txtSearch"
+                               value="@Context.Request.Query["txtSearch"]"/>
+
+                        <select class="form-select"
+                                name="sortOrder"
+                                onchange="this.form.submit();">
+
+                            <option value="">Sắp xếp theo</option>
+
+                             <option value="featured">
+                                    Nổi bật
+                            </option>
+
+                             <option value="bestseller">
+                                    Bán chạy
+                            </option>
+
+                             <option value="discount">
+                                    Giảm giá
+                            </option>
+
+                             <option value="new">
+                                    Mới nhất
+                            </option>
+
+                             <option value="price_asc">
+                                    Giá tăng dần
+                            </option>
+
+                             <option value="price_desc">
+                                    Giá giảm dần
+                            </option>
+
+                        </select>
+
+                    </form>
+                </div>
                 <div class="col-lg-8 text-end">
                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                         <li class="nav-item">

@@ -10,7 +10,7 @@ namespace ShipFood.API.Controllers
         private readonly IRepository<TbDanhMuc> _danhMucRepo = danhMucRepo;
         private readonly IRepository<TbUser> _userRepo = userRepo;
 
-        public async Task<IActionResult> Index(string txtSearch)
+        public async Task<IActionResult> Index(string txtSearch, string sortOrder)
         {
             var danhMucList = await _danhMucRepo.GetAllAsync();
             IEnumerable<TbMonAn> monAnList;
@@ -23,6 +23,18 @@ namespace ShipFood.API.Controllers
             else
             {
                 monAnList = await _monAnRepo.GetAllAsync();
+                // Xử lý sắp xếp
+               monAnList = sortOrder switch
+                {
+                    "featured" => monAnList.OrderByDescending(m => m.Noibat),
+                    "bestseller" => monAnList.OrderByDescending(m => m.Soluongban),
+                    "discount" => monAnList.OrderByDescending(m => m.Phantramgiam),
+                    "new" => monAnList.OrderByDescending(m => m.Ngaytao),
+                    "price_asc" => monAnList.OrderBy(m => m.Giatien),
+                    "price_desc" => monAnList.OrderByDescending(m => m.Giatien),
+                    _ => monAnList
+                };
+                
             }
 
             // TỰ ĐỘNG TẠO DỮ LIỆU: Nếu chưa có dữ liệu, thêm dữ liệu mẫu để web đẹp hơn
@@ -34,6 +46,7 @@ namespace ShipFood.API.Controllers
             }
 
             ViewBag.DanhMucList = danhMucList;
+            ViewBag.SortOrder = sortOrder;
             return View(monAnList);
         }
 

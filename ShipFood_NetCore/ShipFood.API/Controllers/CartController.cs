@@ -16,6 +16,7 @@ namespace ShipFood.API.Controllers
         IRepository<TbDonHang> donHangRepo,
         IRepository<TbChiTietDonHang> chiTietRepo,
         ITbMonAnRepository monAnRepo,
+        IRepository<TbTonKho> tonKhoRepo,
         PricingService pricingService,
         PaymentFactory paymentFactory,
         NotificationSubject notificationSubject,
@@ -25,6 +26,7 @@ namespace ShipFood.API.Controllers
         private readonly IRepository<TbDonHang> _donHangRepo = donHangRepo;
         private readonly IRepository<TbChiTietDonHang> _chiTietRepo = chiTietRepo;
         private readonly ITbMonAnRepository _monAnRepo = monAnRepo;
+        private readonly IRepository<TbTonKho> _tonKhoRepo = tonKhoRepo;
         private readonly PricingService _pricingService = pricingService;
         private readonly PaymentFactory _paymentFactory = paymentFactory;
         private readonly NotificationSubject _notificationSubject = notificationSubject;
@@ -212,8 +214,32 @@ namespace ShipFood.API.Controllers
             donHang.Phiship = 15000;
 
             // 4. Command Pattern (Place Order)
-            var placeOrderCommand = new PlaceOrderCommand(donHang, cart.MonAns, _donHangRepo, _chiTietRepo, _notificationSubject, _logger);
+            var placeOrderCommand = new PlaceOrderCommand(donHang, cart.MonAns, _donHangRepo, _chiTietRepo, _monAnRepo, _tonKhoRepo, _notificationSubject, _logger);
             await _orderInvoker.ExecuteCommandAsync(placeOrderCommand);
+
+            // 5. Update Ton Kho
+            foreach (var item in cart.MonAns)
+            {
+                //Tăng số lượng bán ra
+                var monAn = await _monAnRepo.GetByIdAsync(item.Mamon);
+                if (monAn != null)
+                {
+                    monAn.Soluongban += item.SoLuong;
+                    await _monAnRepo.UpdateAsync(monAn);
+                }
+                //T giảm số lượng tồn kho
+                var tonKhoList = await _tonKhoRepo.FindAsync(t => t.Mamon == item.Mamon);
+                var tonKho = tonKhoList.FirstOrDefault();
+                if (tonKho != null)
+                {
+                    tonKho.SoLuongTon -= item.SoLuong;
+                    if(tonKho.SoLuongTon < 0)
+                    {
+                        tonKho.SoLuongTon = 0;
+                    }
+                    await _tonKhoRepo.UpdateAsync(tonKho);  
+                }
+            }
 
             // Clear Cart
             HttpContext.Session.Remove("Cart");

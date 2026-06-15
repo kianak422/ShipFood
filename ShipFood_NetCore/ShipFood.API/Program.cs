@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShipFood.API.Data;
 using ShipFood.API.Repositories;
+using ShipFood.API.Models;
 using ShipFood.API.Services.Logger; // Singleton
 using ShipFood.API.Services.Payment; // Factory
 using ShipFood.API.Services.Pricing; // Strategy
@@ -48,6 +49,9 @@ builder.Services.AddSingleton<ShipFood.API.Services.Flyweight.IconFlyweightFacto
 // 10. Visitor (Mẫu Người viếng thăm - Mở rộng tính năng không sửa code cũ)
 // Mẫu Visitor nay được nhúng trực tiếp nên ta không cần Dependency Injection cho Scoped của nó nữa
 // Để lại comment cho biết ta đang dùng Visitor.
+
+// 11. Singleton (Mẫu 1 bản sao duy nhất - Dùng chung 1 bản sao duy nhất)
+builder.Services.AddScoped<IRepository<TbTonKho>, Repository<TbTonKho>>();
 
 // Chuyển từ API sang MVC (Mô hình View - Controller)
 builder.Services.AddControllersWithViews();

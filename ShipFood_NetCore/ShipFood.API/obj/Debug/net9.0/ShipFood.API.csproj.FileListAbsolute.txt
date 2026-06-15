@@ -2267,3 +2267,4 @@ E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\r
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.pdb
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.genruntimeconfig.cache
 E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ref\ShipFood.API.dll
+E:\K29\TMDT\TH\ShipFood_NetCore\ShipFood_NetCore\ShipFood.API\obj\Debug\net9.0\ShipFood.API.sourcelink.json

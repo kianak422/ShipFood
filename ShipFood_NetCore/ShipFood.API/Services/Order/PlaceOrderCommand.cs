@@ -11,6 +11,8 @@ namespace ShipFood.API.Services.Order
         List<TbMonAn> cartItems,
         IRepository<TbDonHang> donHangRepository,
         IRepository<TbChiTietDonHang> chiTietRepository,
+        ITbMonAnRepository monAnRepository,
+        IRepository<TbTonKho> tonKhoRepository,
         NotificationSubject notificationSubject,
         ILoggerService logger) : IOrderCommand
     {
@@ -18,6 +20,9 @@ namespace ShipFood.API.Services.Order
         private readonly List<TbMonAn> _cartItems = cartItems;
         private readonly IRepository<TbDonHang> _donHangRepository = donHangRepository;
         private readonly IRepository<TbChiTietDonHang> _chiTietRepository = chiTietRepository;
+        private readonly ITbMonAnRepository _monAnRepository = monAnRepository;
+
+        private readonly IRepository<TbTonKho> _tonKhoRepository = tonKhoRepository;
         private readonly NotificationSubject _notificationSubject = notificationSubject;
         private readonly ILoggerService _logger = logger;
 
@@ -39,6 +44,28 @@ namespace ShipFood.API.Services.Order
                     Dongia = item.Giatien
                 };
                 await _chiTietRepository.AddAsync(chiTiet);
+
+                // Cập nhật số lượng bán
+                var monAn = await _monAnRepository.GetByIdAsync(item.Mamon);
+                if (monAn != null)
+                {
+                    monAn.Soluongban += item.SoLuong;
+                    await _monAnRepository.UpdateAsync(monAn);
+                }
+                //Giảm số lượng tồn kho
+                var tonKhoList = 
+                    await _tonKhoRepository.FindAsync(x => x.Mamon == item.Mamon);
+                    
+                var tonKho = tonKhoList.FirstOrDefault();
+                if (tonKho != null)
+                {
+                    tonKho.SoLuongTon -= item.SoLuong;
+                    if(tonKho.SoLuongTon < 0)
+                    {
+                        tonKho.SoLuongTon = 0;
+                    }
+                    await _tonKhoRepository.UpdateAsync(tonKho);  
+                }
             }
 
             // 3. Gửi thông báo
