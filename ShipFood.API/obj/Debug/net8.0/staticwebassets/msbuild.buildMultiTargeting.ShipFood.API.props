@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\ShipFood.API.props" />
-</Project>
