@@ -1,0 +1,55 @@
+@model ShipFood.API.Models.TbDanhMuc
+
+@{
+    ViewData["Title"] = "Cập nhật Danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Cập nhật Danh mục</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Madanhmuc" />
+                    <div class="form-group">
+                        <label asp-for="Tendanhmuc" class="control-label">Tên danh mục</label>
+                        <input asp-for="Tendanhmuc" class="form-control" />
+                        <span asp-validation-for="Tendanhmuc" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mota" class="control-label">Mô tả</label>
+                        <input asp-for="Mota" class="form-control" />
+                        <span asp-validation-for="Mota" class="text-danger"></span>
+                    </div>
+                     <div class="form-group">
+                        <label asp-for="Hinhanh" class="control-label">Hình ảnh</label>
+                        <input type="file" name="image" class="form-control" />
+                        <!-- Show current image if exists -->
+                        @if (!string.IsNullOrEmpty(Model.Hinhanh))
+                        {
+                            <div class="mt-2">
+                                <img src="@Model.Hinhanh" alt="Current Image" style="max-width: 100px;" />
+                            </div>
+                        }
+                        <input type="hidden" asp-for="Hinhanh" />
+                        <span asp-validation-for="Hinhanh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,86 @@
+@model IEnumerable<ShipFood.API.Models.TbDonHang>
+@inject ShipFood.API.Services.UI.IUIFactory UIFactory
+
+@{
+    ViewData["Title"] = "Quản lý Đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Danh sách Đơn hàng</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Ngày đặt
+                                </th>
+                                <th>
+                                    Trạng thái
+                                </th>
+                                <th>
+                                    Tổng tiền
+                                </th>
+                                <th>
+                                    Ghi chú
+                                </th>
+                                <th>
+                                    Thao tác
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 1; }
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @(i++)
+                                    </td>
+                                    <td>
+                                        @item.Ngaydathang.ToString("dd/MM/yyyy HH:mm")
+                                    </td>
+                                    <td>
+                                        @{
+                                            string badgeClass = "bg-warning text-dark"; // Mặc định Đã đặt, Đang xử lý
+                                            if (item.Trangthai == "Đã giao" || item.Trangthai == "Hoàn thành") badgeClass = "bg-success";
+                                            else if (item.Trangthai == "Đã hủy" || item.Trangthai == "Hủy bỏ") badgeClass = "bg-danger";
+                                            else if (item.Trangthai == "Đang giao") badgeClass = "bg-info text-dark";
+                                        }
+                                        <span class="badge @badgeClass">
+                                            @item.Trangthai
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @item.Tongtien.ToString("N0") đ
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ghichu)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Madh" class="btn btn-warning btn-sm">Cập nhật</a>
+                                        
+                                        <!-- Sử dụng Abstract Factory để tạo Nút bấm -->
+                                        @Html.Raw(UIFactory.CreateButton("Chi tiết", Url.Action("Details", new { id = item.Madh }) ?? "#"))
+
+                                        @if (item.Trangthai != "Hủy bỏ" && item.Trangthai != "Hoàn thành")
+                                        {
+                                            <a asp-action="Cancel" asp-route-id="@item.Madh" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');">Hủy đơn</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

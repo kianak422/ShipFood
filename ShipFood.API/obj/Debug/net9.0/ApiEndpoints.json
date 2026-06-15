@@ -1,0 +1,237 @@
+[
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiCategoryController",
+    "Method": "GetCategories",
+    "RelativePath": "api/ApiCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiCategoryController",
+    "Method": "GetCategory",
+    "RelativePath": "api/ApiCategory/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiOrderController",
+    "Method": "GetOrders",
+    "RelativePath": "api/ApiOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiOrderController",
+    "Method": "GetOrder",
+    "RelativePath": "api/ApiOrder/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiOrderController",
+    "Method": "CancelOrder",
+    "RelativePath": "api/ApiOrder/{id}/cancel",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiProductController",
+    "Method": "GetProducts",
+    "RelativePath": "api/ApiProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiProductController",
+    "Method": "CreateProduct",
+    "RelativePath": "api/ApiProduct",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Mamon",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Tenmon",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mota",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Giatien",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Hinhanh",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Maquanan",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Madanhmuc",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SoLuong",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiProductController",
+    "Method": "GetProduct",
+    "RelativePath": "api/ApiProduct/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/ApiProduct/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Mamon",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Tenmon",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Mota",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Giatien",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Hinhanh",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Maquanan",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Madanhmuc",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SoLuong",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShipFood.API.Controllers.Api.ApiProductController",
+    "Method": "DeleteProduct",
+    "RelativePath": "api/ApiProduct/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
