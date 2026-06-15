@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Fastship | Khám phá, đặt hàng, giao tận nơi</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="fastship, đặt hàng, giao hàng, ẩm thực, thức ăn" name="keywords" />
+    <meta content="Fastship - Nền tảng đặt hàng và giao hàng thức ăn hàng đầu Việt Nam" name="description" />
+    
+    <!-- Favicon -->
+    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/home/img/favicon.ico" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/home/lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="/home/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/home/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom Stylesheets -->
+    <link href="/home/css/style.css?v=2" rel="stylesheet" />
+    <link href="/home/css/chat.css?v=2" rel="stylesheet" />
+    <link href="/home/css/custom.css?v=2" rel="stylesheet" />
+
+    @await RenderSectionAsync("css", required: false)
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+    
+    <!-- Navbar Start -->
+    <div class="container-fluid fixed-top px-0 wow mb-5 fadeIn" data-wow-delay="0.1s">
+        <!-- Top Bar -->
+        <div class="top-bar row gx-0 align-items-center d-none d-lg-flex">
+            <div class="col-lg-6 px-5 text-start">
+                <small><i class="fa fa-map-marker-alt me-2"></i>48 Cao Thắng, Hải Châu, Đà Nẵng</small>
+                <small class="ms-4"><i class="fa fa-envelope me-2"></i>Fastship@contact.com</small>
+            </div>
+            <div class="col-lg-6 px-5 text-end">
+                <small>Theo dõi chúng tôi trên:</small>
+                <a class="text-body ms-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a class="text-body ms-3" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="text-body ms-3" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a class="text-body ms-3" href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="/Home" class="navbar-brand ms-4 ms-lg-0">
+                <h1 style="color: #3CB815 !important;" class="fw-bold text-primary m-0">
+                    F<span style="color: #F65005 !important;" class="text-secondary">ast</span>ship
+                </h1>
+            </a>
+            
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Search Form -->
+            <div class="col-lg-5 mx-auto mt-2 mt-lg-0">
+                <form action="/home" method="get" class="d-flex">
+                    <div class="input-group">
+                        <select class="form-select bg-light border-0" style="max-width: 130px;" name="idDM">
+                            <option value="">Tất cả</option>
+                            @if (ViewBag.DanhMucList != null)
+                            {
+                                foreach (var dm in ViewBag.DanhMucList)
+                                {
+                                    <option value="@dm.Madanhmuc">@dm.Tendanhmuc</option>
+                                }
+                            }
+                        </select>
+                        <input type="text" 
+                               class="form-control border-0" 
+                               value='@Context.Request.Query["txtSearch"]' 
+                               name="txtSearch" 
+                               placeholder="Tìm món ăn..." />
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Main Menu -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="/Home" class="nav-item nav-link fw-bold text-dark">Trang chủ</a>
+                    <a href="/Home/DanhMuc" class="nav-item nav-link fw-bold text-dark">Menu ẩm thực</a>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="d-none d-lg-flex ms-2">
+                    <!-- User Logged In Check - Using Session mockup -->
+                    @if (Context.Session.GetString("Username") != null)
+                    {
+                        <div class="nav-item dropdown">
+                            <small class="fa fa-user text-body nav-link dropdown-toggle" data-bs-toggle="dropdown" style="cursor: pointer;"></small>
+                            <div style="right: -94px; left: -100px;" class="dropdown-menu m-0">
+                                <p style="padding-top:5px;padding-left: 16px;" class="mb-0">
+                                    Xin chào <strong>@Context.Session.GetString("Username")</strong>
+                                </p>
+                                <hr />
+                                @if (Context.Session.GetString("Role") == "Admin")
+                                {
+                                    <a href="/Admin/Dashboard" class="dropdown-item text-danger fw-bold"><i class="fas fa-user-shield me-2"></i>Trang Quản Trị</a>
+                                }
+                                <a href="/Cart/History" class="dropdown-item">Lịch sử đơn hàng</a>
+                                <a href="/Home/Logout" class="dropdown-item">Đăng xuất</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- User Not Logged In -->
+                        <div class="nav-item dropdown">
+                            <small class="fa fa-user text-body nav-link dropdown-toggle" data-bs-toggle="dropdown" style="cursor: pointer;"></small>
+                            <div style="right: -94px; left: -100px;" class="dropdown-menu m-0">
+                                <a href="/Home/Login" class="dropdown-item">Đăng nhập</a>
+                                <a href="/Home/Signup" class="dropdown-item">Đăng ký</a>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Shopping Cart -->
+                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="/Cart">
+                        <small class="fa fa-shopping-bag text-body"></small>
+                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                            @* Cart count implementation needed *@
+                            0
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+    
+    <!-- Main Content -->
+    <main class="mt-5">
+        @RenderBody()
+    </main>
+    <!-- End Main Content -->
+    
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h1 style="color: #3CB815 !important;" class="fw-bold text-primary mb-4">
+                        F<span style="color: #F65005 !important;" class="text-secondary">ast</span>ship
+                    </h1>
+                    <p class="text-light">Nền tảng đặt hàng và giao hàng thức ăn hàng đầu Việt Nam. Kết nối bạn với những món ăn ngon từ khắp nơi.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Địa chỉ</h4>
+                    <p class="text-light"><i class="fa fa-map-marker-alt me-3"></i>48 Cao Thắng, Hải Châu, Đà Nẵng</p>
+                    <p class="text-light"><i class="fa fa-phone-alt me-3"></i>+84 123 456 789</p>
+                </div>
+                 <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Liên kết nhanh</h4>
+                    <a class="btn btn-link" href="/Home">Trang chủ</a>
+                    <a class="btn btn-link" href="/Home/DanhMuc">Menu ẩm thực</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/home/lib/wow/wow.min.js"></script>
+    <script src="/home/lib/easing/easing.min.js"></script>
+    <script src="/home/lib/waypoints/waypoints.min.js"></script>
+    <script src="/home/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/home/js/main.js"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+       <!-- Floating Chat Partial - THÊM MỚI -->
+   @await Html.PartialAsync("_FloatingChat")
+
+   @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

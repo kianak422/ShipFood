@@ -1,0 +1,127 @@
+@model ShipFood.API.Models.TbDonHang
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Chi tiết đơn hàng #@Model.Madh</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" href="/Home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="/Cart/History">Lịch sử</a></li>
+                <li class="breadcrumb-item text-dark active" aria-current="page">Chi tiết</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-12">
+                <div class="card border-0 shadow-sm wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Thông tin đơn hàng</h4>
+                            <span class="badge fs-6 @(Model.Trangthai == "Đã giao" ? "bg-success" : (Model.Trangthai == "Đã hủy" ? "bg-danger" : "bg-warning"))">@Model.Trangthai</span>
+                        </div>
+                        
+                        <div class="row mb-5 bg-light p-4 rounded">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <h6 class="text-primary"><i class="fa fa-calendar-alt me-2"></i>Ngày đặt:</h6>
+                                <p class="mb-3">@Model.Ngaydathang.ToString("dd/MM/yyyy HH:mm")</p>
+                                
+                                <h6 class="text-primary"><i class="fa fa-map-marker-alt me-2"></i>Thông tin vận chuyển:</h6>
+                                <p class="mb-0">@Model.Ghichu?.Replace($"[User:{Context.Session.GetString("Username")}] ", "")</p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <h6 class="text-primary">Mã đơn hàng: #@Model.Madh</h6>
+                                <p class="text-muted small">Cảm ơn bạn đã đồng hành cùng chúng tôi.</p>
+                            </div>
+                        </div>
+
+                        <h5 class="mb-4"><i class="fa fa-shopping-bag text-primary me-2"></i>Sản phẩm đã mua</h5>
+                        @{
+                            decimal subTotal = 0;
+                            if (ViewBag.ChiTiets != null)
+                            {
+                                subTotal = ((IEnumerable<ShipFood.API.Models.TbChiTietDonHang>)ViewBag.ChiTiets).Sum(c => c.Dongia * c.Soluong);
+                            }
+                            decimal discount = subTotal + Model.Phiship - Model.Tongtien;
+                        }
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" style="width: 100px;">Hình ảnh</th>
+                                        <th scope="col">Tên món</th>
+                                        <th scope="col" class="text-center">Số lượng</th>
+                                        <th scope="col" class="text-end">Đơn giá</th>
+                                        <th scope="col" class="text-end">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (ViewBag.ChiTiets != null)
+                                    {
+                                        foreach (var item in (IEnumerable<ShipFood.API.Models.TbChiTietDonHang>)ViewBag.ChiTiets)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="@(item.MonAn?.Hinhanh ?? "/home/img/no-image.jpg")" alt="@item.MonAn?.Tenmon" class="rounded" style="width: 70px; height: 70px; object-fit: cover;" />
+                                                </td>
+                                                <td><h6 class="mb-0">@item.MonAn?.Tenmon</h6></td>
+                                                <td class="text-center">@item.Soluong</td>
+                                                <td class="text-end">@item.Dongia.ToString("N0") đ</td>
+                                                <td class="text-end fw-bold">@((item.Dongia * item.Soluong).ToString("N0")) đ</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center py-4">Chưa có chi tiết món ăn</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end text-muted pb-2 pt-4">Tạm tính:</td>
+                                        <td class="text-end fw-bold pb-2 pt-4">@subTotal.ToString("N0") đ</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end text-muted py-2 border-0">Phí giao hàng:</td>
+                                        <td class="text-end fw-bold py-2 border-0">@Model.Phiship.ToString("N0") đ</td>
+                                    </tr>
+                                    @if(discount > 0)
+                                    {
+                                    <tr>
+                                        <td colspan="4" class="text-end text-success py-2 border-0">Mã khuyến mãi:</td>
+                                        <td class="text-end fw-bold text-success py-2 border-0">-@discount.ToString("N0") đ</td>
+                                    </tr>
+                                    }
+                                    <tr class="table-light">
+                                        <td colspan="4" class="text-end text-uppercase fw-bold text-dark py-3">Tổng thanh toán:</td>
+                                        <td class="text-end fs-5 fw-bold text-primary py-3">@Model.Tongtien.ToString("N0") đ</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
+                        <div class="mt-5 text-center d-flex justify-content-center gap-3">
+                            <a href="/Cart/History" class="btn btn-outline-secondary py-2 px-4"><i class="fa fa-arrow-left me-2"></i>Quay lại danh sách</a>
+                            @if (Model.Trangthai == "Đã đặt")
+                            {
+                                <form action="/Cart/Cancel/@Model.Madh" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');">
+                                    <button type="submit" class="btn btn-danger py-2 px-4"><i class="fa fa-times-circle me-2"></i>Hủy đơn hàng</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
