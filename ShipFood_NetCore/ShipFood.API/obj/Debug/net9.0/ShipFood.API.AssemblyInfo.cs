@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("a0aaf16a-beb8-4adb-915b-4b565ec5110a")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cb135efebfb54b194e42d0ffa7ad10d02ee622aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c47726eaf824b7e9c63012eebb117e5c8d93de31")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
