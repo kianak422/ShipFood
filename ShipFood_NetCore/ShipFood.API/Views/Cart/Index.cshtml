@@ -6,6 +6,15 @@
 <!-- Cart Page Start -->
 <div class="container-fluid py-5">
     <div class="container py-5">
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
         @if (Model != null && Model.MonAns != null && Model.MonAns.Any())
         {
             <div class="table-responsive">

@@ -1,0 +1,16 @@
+2026-06-27 20:20:02 [INFO] Received Checkout request
+2026-06-27 20:20:02 [INFO] [Pricing] Strategy switched to: HappyHourPricingStrategy
+2026-06-27 20:20:02 [INFO] [Pricing] HAPPY HOUR! Original: $120,000.00, Discount: $24,000.00, Final: $96,000.00
+2026-06-27 20:20:02 [INFO] [Decorator] Applied 10% Discount. Original: $96,000.00, New: $86,400.00
+2026-06-27 20:20:02 [INFO] [Decorator] Added Shipping Fee $15,000.00. Original: $86,400.00, New: $101,400.00
+2026-06-27 20:20:02 [INFO] [Invoker] Received command: PlaceOrderCommand
+2026-06-27 20:20:02 [INFO] [Command] Executing PlaceOrderCommand for Order ID: 0
+2026-06-27 20:20:03 [INFO] [NotificationList] Notifying all observers...
+2026-06-27 20:21:04 [INFO] Received Checkout request
+2026-06-27 20:21:04 [INFO] [Pricing] Strategy switched to: HappyHourPricingStrategy
+2026-06-27 20:21:04 [INFO] [Pricing] HAPPY HOUR! Original: $25,000.00, Discount: $5,000.00, Final: $20,000.00
+2026-06-27 20:21:04 [INFO] [Decorator] Applied 10% Discount. Original: $20,000.00, New: $18,000.00
+2026-06-27 20:21:04 [INFO] [Decorator] Added Shipping Fee $15,000.00. Original: $18,000.00, New: $33,000.00
+2026-06-27 20:21:04 [INFO] [Invoker] Received command: PlaceOrderCommand
+2026-06-27 20:21:04 [INFO] [Command] Executing PlaceOrderCommand for Order ID: 0
+2026-06-27 20:21:04 [INFO] [NotificationList] Notifying all observers...

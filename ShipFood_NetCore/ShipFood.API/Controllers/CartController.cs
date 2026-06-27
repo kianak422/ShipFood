@@ -80,12 +80,39 @@ namespace ShipFood.API.Controllers
 
             // Dùng await để lấy dữ liệu bất đồng bộ
             var monAn = await _monAnRepo.GetByIdAsync(maMonAn);
-            if (monAn != null)
+
+            if (monAn == null)
+             return RedirectToAction("Index");
+            
+            // Kiểm tra tồn kho
+            var tonKho = (await _tonKhoRepo
+            .FindAsync(x => x.Mamon == maMonAn))
+            .FirstOrDefault();
+
+            if (tonKho == null)
             {
-                var cart = GetCartFromSession();
-                cart.ThemMon(monAn, soLuong);
-                SaveCartToSession(cart);
+                ModelState.AddModelError("", 
+                $"Món {monAn.Tenmon} chưa được nhập kho.");
+                return RedirectToAction("Index");
             }
+
+            var cart = GetCartFromSession();
+
+            var current = cart.MonAns
+            .FirstOrDefault(m => m.Mamon == maMonAn);
+            
+            int soLuongTrongGio = current?.SoLuong ?? 0;
+            
+            if (soLuongTrongGio + soLuong > tonKho.SoLuongTon)
+            {
+                TempData["ErrorMessage"] = 
+                $"Bạn đã có {soLuongTrongGio} phần trong giỏ. Kho chỉ còn {tonKho.SoLuongTon} phần.";
+                return RedirectToAction("Index");
+            }
+
+            // đủ hàng mới thêm
+            cart.ThemMon(monAn, soLuong);
+            SaveCartToSession(cart);          
             return RedirectToAction("Index");
         }
 
@@ -171,6 +198,32 @@ namespace ShipFood.API.Controllers
 
             var username = HttpContext.Session.GetString("Username") ?? "Guest";
 
+            foreach (var item in cart.MonAns)
+            {
+                var tonKho = (await _tonKhoRepo
+                .FindAsync(x => x.Mamon == item.Mamon))
+                .FirstOrDefault();
+
+                if (tonKho == null)
+                {
+                    ModelState.AddModelError("", 
+                    $"Món {item.Tenmon} không có trong kho.");
+
+                    ViewBag.Hoten = HttpContext.Session.GetString("Username");
+                    return View(cart);
+                }
+
+                if (tonKho.SoLuongTon < item.SoLuong)
+                {
+                    ModelState.AddModelError("",
+                     $"Món {item.Tenmon} chỉ còn {tonKho.SoLuongTon} trong kho.");
+
+                     ViewBag.Hoten = HttpContext.Session.GetString("Username");
+                    return View(cart);
+                }
+            }
+
+            
             // 1. Create basics
             var donHang = new TbDonHang
             {
@@ -217,29 +270,6 @@ namespace ShipFood.API.Controllers
             var placeOrderCommand = new PlaceOrderCommand(donHang, cart.MonAns, _donHangRepo, _chiTietRepo, _monAnRepo, _tonKhoRepo, _notificationSubject, _logger);
             await _orderInvoker.ExecuteCommandAsync(placeOrderCommand);
 
-            // 5. Update Ton Kho
-            foreach (var item in cart.MonAns)
-            {
-                //Tăng số lượng bán ra
-                var monAn = await _monAnRepo.GetByIdAsync(item.Mamon);
-                if (monAn != null)
-                {
-                    monAn.Soluongban += item.SoLuong;
-                    await _monAnRepo.UpdateAsync(monAn);
-                }
-                //T giảm số lượng tồn kho
-                var tonKhoList = await _tonKhoRepo.FindAsync(t => t.Mamon == item.Mamon);
-                var tonKho = tonKhoList.FirstOrDefault();
-                if (tonKho != null)
-                {
-                    tonKho.SoLuongTon -= item.SoLuong;
-                    if(tonKho.SoLuongTon < 0)
-                    {
-                        tonKho.SoLuongTon = 0;
-                    }
-                    await _tonKhoRepo.UpdateAsync(tonKho);  
-                }
-            }
 
             // Clear Cart
             HttpContext.Session.Remove("Cart");
