@@ -22,6 +22,10 @@ namespace ShipFood.API.Models
         [Column("ngaycapnhat")]
         public DateTime? NgayCapNhat { get; set; }
 
+        public decimal GiaNhap { get; set; }
+
+        public decimal GiaBan { get; set; }
+
         [ForeignKey(nameof(Mamon))]
         public TbMonAn? MonAn { get; set; }
     }

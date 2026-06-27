@@ -5601,11 +5601,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\K29\\TMDT\\TH\\ShipFood_NetCore\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
+      "projectUniqueName": "E:\\K29\\TMDT\\TH\\ShipFood\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
       "projectName": "ShipFood.API",
-      "projectPath": "E:\\K29\\TMDT\\TH\\ShipFood_NetCore\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
+      "projectPath": "E:\\K29\\TMDT\\TH\\ShipFood\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
       "packagesPath": "C:\\Users\\GIGABYTE\\.nuget\\packages\\",
-      "outputPath": "E:\\K29\\TMDT\\TH\\ShipFood_NetCore\\ShipFood_NetCore\\ShipFood.API\\obj\\",
+      "outputPath": "E:\\K29\\TMDT\\TH\\ShipFood\\ShipFood_NetCore\\ShipFood.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

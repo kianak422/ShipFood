@@ -87,7 +87,19 @@
                            readonly />
 
                 </div>
+                <div class="mb-3">
+                    <label>Giá nhập</label>
+                    <input asp-for="GiaNhap" class="form-control" />
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Giá bán</label>
 
+                    <input asp-for="GiaBan"
+                    id="GiaBan"
+                     class="form-control"
+                     readonly />
+                </div>
             </div>
 
             <hr />
@@ -117,3 +129,25 @@
     </div>
 
 </div>
+
+@section Scripts
+{
+<script>
+
+const dsMonAn = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.MonAn));
+
+document.getElementById("Mamon").addEventListener("change", function () {
+
+    let id = parseInt(this.value);
+
+    let mon = dsMonAn.find(x => x.mamon == id);
+
+    if(mon)
+    {
+        document.getElementById("GiaBan").value = mon.giatien;
+    }
+
+});
+
+</script>
+}

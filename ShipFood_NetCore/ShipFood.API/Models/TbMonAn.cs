@@ -42,6 +42,10 @@ namespace ShipFood.API.Models
         [Column("noibat")]
         public bool Noibat { get; set; }
 
+        public decimal GiaNhap { get; set; }
+
+        public decimal GiaBan { get; set; }
+
         [NotMapped]
         [Column("soluong")]
         [Required]

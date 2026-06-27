@@ -64,7 +64,12 @@ namespace ShipFood.API.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.MonAn = _context.TbMonAn.ToList();
+            ViewBag.MonAn = _context.TbMonAn
+            .Select(x => new { 
+                x.Mamon, 
+                x.Tenmon,
+                x.Giatien })
+                .ToList();
             return View();
         }
 
@@ -73,7 +78,17 @@ namespace ShipFood.API.Areas.Admin.Controllers
     {
         var kho = _context.TbTonKho
         .FirstOrDefault(x => x.Mamon == model.Mamon);
+         
+         var monAn = _context.TbMonAn
+        .FirstOrDefault(x => x.Mamon == model.Mamon);
 
+        if (monAn == null)
+        {
+           ModelState.AddModelError("", "Không tìm thấy món ăn.");
+           ViewBag.MonAn = _context.TbMonAn.ToList();
+           return View(model);
+        }
+       
         if (kho == null)
         {
         kho = new TbTonKho
@@ -81,6 +96,8 @@ namespace ShipFood.API.Areas.Admin.Controllers
            Mamon = model.Mamon,
            SoLuongNhap = model.SoLuongNhap,
            SoLuongTon = model.SoLuongNhap,
+           GiaNhap = model.GiaNhap,
+           GiaBan = monAn.Giatien,
            NgayCapNhat = DateTime.Now
         };
 
@@ -90,8 +107,12 @@ namespace ShipFood.API.Areas.Admin.Controllers
        {
            kho.SoLuongNhap += model.SoLuongNhap;
            kho.SoLuongTon += model.SoLuongNhap;
+           kho.GiaNhap = model.GiaNhap;
+           kho.GiaBan = monAn.Giatien;
            kho.NgayCapNhat = DateTime.Now;
         }
+
+               
 
       _context.SaveChanges();
 
@@ -133,13 +154,27 @@ namespace ShipFood.API.Areas.Admin.Controllers
            var item = _context.TbTonKho
            .FirstOrDefault(x => x.MaKho == model.MaKho);
 
+            var monAn = _context.TbMonAn
+            .FirstOrDefault(x => x.Mamon == model.Mamon);
+
+             if (monAn != null)
+            {
+                item.GiaBan = monAn.Giatien;
+            }
+
            if (item == null)
                return NotFound();
 
             item.Mamon = model.Mamon;
             item.SoLuongTon = model.SoLuongTon;
             item.SoLuongNhap = model.SoLuongNhap;
+            item.GiaNhap = model.GiaNhap;
+            item.GiaBan = model.GiaBan;
             item.NgayCapNhat = DateTime.Now;
+
+            
+
+           
 
             _context.SaveChanges();
 

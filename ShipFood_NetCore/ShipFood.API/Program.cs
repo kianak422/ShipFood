@@ -122,6 +122,20 @@ using (var scope = app.Services.CreateScope())
     // Auto migration if needed
     context.Database.EnsureCreated();
     ShipFood.API.Services.Data.DataSeeder.Seed(context);
+
+    /*var tonKhos = context.TbTonKho
+    .Include(x => x.MonAn)
+    .ToList();
+
+    foreach (var item in tonKhos)
+    {
+        if (item.MonAn != null)
+        {
+            item.GiaBan = item.MonAn.Giatien;
+        }
+    }
+
+    context.SaveChanges();*/
 }
 
 app.Run();

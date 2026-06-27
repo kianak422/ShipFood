@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZfkIutvZ9Zs=",
+  "dgSpecHash": "GEgXlrR2r+A=",
   "success": true,
-  "projectFilePath": "E:\\K29\\TMDT\\TH\\ShipFood_NetCore\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
+  "projectFilePath": "E:\\K29\\TMDT\\TH\\ShipFood\\ShipFood_NetCore\\ShipFood.API\\ShipFood.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GIGABYTE\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\GIGABYTE\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -1,0 +1,4 @@
+2026-06-22 16:24:06 [INFO] [Invoker] Received command: CancelOrderCommand
+2026-06-22 16:24:06 [INFO] [Command] Executing CancelOrderCommand for Order ID: 4
+2026-06-22 16:24:06 [INFO] Order 4 has been cancelled.
+2026-06-22 16:24:06 [INFO] [NotificationList] Notifying all observers...
