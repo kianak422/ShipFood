@@ -2,55 +2,190 @@
 
 @{
     ViewData["Title"] = "Thêm Voucher";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="card">
+<style>
 
-    <div class="card-header">
-        <h4>Thêm Voucher</h4>
+    .voucher-card{
+
+        border:none;
+        border-radius:15px;
+        box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    }
+
+    .voucher-header{
+
+        background:linear-gradient(135deg,#3CB815,#2ea309);
+        color:white;
+        padding:18px 25px;
+        border-radius:15px 15px 0 0;
+
+    }
+
+    .form-control{
+
+        border-radius:10px;
+
+    }
+
+    .form-control:focus{
+
+        border-color:#3CB815;
+        box-shadow:0 0 0 .2rem rgba(60,184,21,.2);
+
+    }
+
+    .btn-success{
+
+        background:#3CB815;
+        border:none;
+
+    }
+
+    .btn-success:hover{
+
+        background:#2ea309;
+
+    }
+
+</style>
+
+<div class="card voucher-card">
+
+    <div class="voucher-header">
+
+        <h3>
+
+            <i class="fas fa-ticket-alt me-2"></i>
+
+            Thêm Voucher
+
+        </h3>
+
     </div>
 
-    <div class="card-body">
+    <form asp-action="Create" method="post">
 
-        <form method="post">
-
-            <div class="mb-3">
-                <label>Mã Voucher</label>
-                <input asp-for="Code" class="form-control" />
-            </div>
+        <div class="card-body">
 
             <div class="mb-3">
-                <label>Giá trị giảm</label>
-                <input asp-for="DiscountValue" class="form-control" />
-            </div>
 
-            <div class="form-check mb-3">
-                <input asp-for="IsPercent" class="form-check-input" />
-                <label class="form-check-label">
-                    Giảm theo %
+                <label class="form-label fw-bold">
+
+                    <i class="fas fa-barcode me-2"></i>
+
+                    Mã Voucher
+
                 </label>
+
+                <input asp-for="Code"
+                       class="form-control"
+                       placeholder="VD: GIAM20K"/>
+
+                <span asp-validation-for="Code"
+                      class="text-danger"></span>
+
             </div>
 
             <div class="mb-3">
-                <label>Ngày bắt đầu</label>
-                <input asp-for="StartDate"
-                       type="date"
-                       class="form-control" />
+
+                <label class="form-label fw-bold">
+
+                    <i class="fas fa-coins me-2"></i>
+
+                    Giá trị giảm
+
+                </label>
+
+                <input asp-for="DiscountValue"
+                       class="form-control"/>
+
             </div>
 
-            <div class="mb-3">
-                <label>Ngày kết thúc</label>
-                <input asp-for="EndDate"
-                       type="date"
-                       class="form-control" />
+            <div class="form-check form-switch mb-4">
+
+                <input asp-for="IsPercent"
+                       class="form-check-input"
+                       id="IsPercent"/>
+
+                <label class="form-check-label"
+                       for="IsPercent">
+
+                    Giảm theo %
+
+                </label>
+
             </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        <i class="fas fa-calendar-alt me-2"></i>
+
+                        Ngày bắt đầu
+
+                    </label>
+
+                    <input asp-for="StartDate"
+                           type="date"
+                           class="form-control"/>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label fw-bold">
+
+                        <i class="fas fa-calendar-check me-2"></i>
+
+                        Ngày kết thúc
+
+                    </label>
+
+                    <input asp-for="EndDate"
+                           type="date"
+                           class="form-control"/>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Quay lại
+
+            </a>
 
             <button class="btn btn-success">
-                Lưu
+
+                <i class="fas fa-save"></i>
+
+                Lưu Voucher
+
             </button>
 
-        </form>
+        </div>
 
-    </div>
+    </form>
 
 </div>
+
+@section Scripts{
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

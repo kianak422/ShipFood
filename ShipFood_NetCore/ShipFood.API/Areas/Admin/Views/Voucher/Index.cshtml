@@ -2,66 +2,212 @@
 
 @{
     ViewData["Title"] = "Quản lý Voucher";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <h4>Danh sách Voucher</h4>
+<style>
+    .voucher-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    }
 
-        <a asp-action="Create"
-           class="btn btn-primary">
+    .voucher-header {
+        background: linear-gradient(135deg,#3CB815,#2ea309);
+        color: white;
+        border-radius:15px 15px 0 0;
+        padding:18px 25px;
+    }
+
+    .table thead{
+        background:#3CB815;
+        color:#fff;
+    }
+
+    .table tbody tr:hover{
+        background:#f8fff5;
+    }
+
+    .badge-code{
+        background:#212529;
+        color:white;
+        font-size:14px;
+        padding:8px 14px;
+        border-radius:30px;
+    }
+
+    .badge-percent{
+        background:#198754;
+        color:white;
+        padding:7px 12px;
+        border-radius:20px;
+    }
+
+    .badge-money{
+        background:#ffc107;
+        color:#000;
+        padding:7px 12px;
+        border-radius:20px;
+    }
+
+    .badge-active{
+        background:#3CB815;
+        color:white;
+        padding:7px 12px;
+        border-radius:20px;
+    }
+
+    .badge-expired{
+        background:#dc3545;
+        color:white;
+        padding:7px 12px;
+        border-radius:20px;
+    }
+
+    .btn-action{
+        width:38px;
+        height:38px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .table td{
+        vertical-align:middle;
+    }
+</style>
+
+<div class="card voucher-card">
+
+    <div class="voucher-header d-flex justify-content-between align-items-center">
+
+        <h3 class="mb-0">
+            <i class="fas fa-ticket-alt me-2"></i>
+            Quản lý Voucher
+        </h3>
+
+        <a asp-action="Create" class="btn btn-light">
+            <i class="fas fa-plus-circle"></i>
             Thêm Voucher
         </a>
+
     </div>
 
     <div class="card-body">
 
-        <table class="table table-bordered">
+        <div class="table-responsive">
 
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Giảm giá</th>
-                    <th>Ngày bắt đầu</th>
-                    <th>Ngày kết thúc</th>
-                    <th></th>
-                </tr>
-            </thead>
+            <table class="table table-hover align-middle">
 
-            <tbody>
+                <thead>
 
-            @foreach(var item in Model)
-            {
-                <tr>
+                    <tr>
+                        <th>Mã Voucher</th>
+                        <th>Giảm giá</th>
+                        <th>Bắt đầu</th>
+                        <th>Kết thúc</th>
+                        <th>Trạng thái</th>
+                        <th width="150">Thao tác</th>
+                    </tr>
 
-                    <td>@item.Code</td>
+                </thead>
 
-                    <td>
-                        @(item.IsPercent
-                            ? item.DiscountValue + "%"
-                            : item.DiscountValue.ToString("N0") + " VNĐ")
-                    </td>
+                <tbody>
 
-                    <td>@item.StartDate.ToString("dd/MM/yyyy")</td>
+                @foreach(var item in Model)
+                {
+                    bool active = DateTime.Now >= item.StartDate &&
+                                  DateTime.Now <= item.EndDate;
 
-                    <td>@item.EndDate.ToString("dd/MM/yyyy")</td>
+                    <tr>
 
-                    <td>
+                        <td>
+                            <span class="badge-code">
+                                <i class="fas fa-ticket-alt me-1"></i>
+                                @item.Code
+                            </span>
+                        </td>
 
-                        <a asp-action="Delete"
-                           asp-route-id="@item.Id"
-                           class="btn btn-danger btn-sm">
-                            Xóa
-                        </a>
+                        <td>
 
-                    </td>
+                            @if(item.IsPercent)
+                            {
+                                <span class="badge-percent">
+                                    <i class="fas fa-percent me-1"></i>
+                                    @item.DiscountValue %
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-money">
+                                    <i class="fas fa-money-bill-wave me-1"></i>
+                                    @item.DiscountValue.ToString("N0") đ
+                                </span>
+                            }
 
-                </tr>
-            }
+                        </td>
 
-            </tbody>
+                        <td>
+                            @item.StartDate.ToString("dd/MM/yyyy")
+                        </td>
 
-        </table>
+                        <td>
+                            @item.EndDate.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+
+                            @if(active)
+                            {
+                                <span class="badge-active">
+                                    <i class="fas fa-check-circle"></i>
+                                    Đang hoạt động
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-expired">
+                                    <i class="fas fa-times-circle"></i>
+                                    Hết hạn
+                                </span>
+                            }
+
+                        </td>
+
+                        <td>
+
+                            <div class="d-flex gap-2">
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-warning btn-action">
+
+                                    <i class="fas fa-edit"></i>
+
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.Id"
+                                   class="btn btn-danger btn-action">
+
+                                    <i class="fas fa-trash"></i>
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
+
 </div>

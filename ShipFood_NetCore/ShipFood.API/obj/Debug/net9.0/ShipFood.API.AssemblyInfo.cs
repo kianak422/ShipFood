@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8abc0d76431f4ff3d8eb1ec81999bf5a3bef32db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba660ec697dccc8bbb834db011e666115eb892b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShipFood.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,6 +10,7 @@
     <link href="/home/css/style.css" rel="stylesheet" />
     <link href="/home/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
@@ -121,16 +122,10 @@
                         class="fas fa-shopping-cart me-2"></i> Đơn hàng</a>
                 <a asp-area="Admin" asp-controller="Voucher" asp-action="Index"
                     class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Voucher" ? "active" : "")"><i
-                        class="fas fa-coupon me-2"></i> Voucher</a>   
-                <a asp-area="Admin" asp-controller="FlashSale" asp-action="Index"
-                    class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "FlashSale" ? "active" : "")">
-                    <i class="fas fa-fire me-2"></i> Flash Sale</a>
+                        class="fas fa-ticket-alt me-2"></i> Voucher</a>   
                 <a asp-area="Admin" asp-controller="Banner" asp-action="Index"
                     class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Banner" ? "active" : "")">
                     <i class="fas fa-image me-2"></i> Banner</a>
-                <a asp-area="Admin" asp-controller="Loyalty" asp-action="Index"
-                    class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Loyalty" ? "active" : "")">
-                    <i class="fas fa-gift me-2"></i> Khách hàng thân thiết</a>  
                 <a asp-area="Admin" asp-controller="Inventory" asp-action="Index"
                     class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Inventory" ? "active" : "")">
                     <i class="fas fa-box me-2"></i> Tồn kho</a>
