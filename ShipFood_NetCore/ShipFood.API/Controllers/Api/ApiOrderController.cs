@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShipFood.API.Models;
 using ShipFood.API.Repositories;
+using ShipFood.API.Data;
+using ShipFood.API.Services.Inventory;
 
 namespace ShipFood.API.Controllers.Api
 {
@@ -10,9 +13,18 @@ namespace ShipFood.API.Controllers.Api
     {
         private readonly IRepository<TbDonHang> _orderRepo;
 
-        public ApiOrderController(IRepository<TbDonHang> orderRepo)
+        private readonly AppDbContext _context;
+
+        private readonly IInventoryService _inventoryService;
+
+        public ApiOrderController(
+            IRepository<TbDonHang> orderRepo, 
+            AppDbContext context, 
+            IInventoryService inventoryService)
         {
             _orderRepo = orderRepo;
+            _context = context;
+            _inventoryService = inventoryService;
         }
 
         // GET: api/ApiOrder?search=hanoi
@@ -52,20 +64,36 @@ namespace ShipFood.API.Controllers.Api
         public async Task<IActionResult> CancelOrder(int id)
         {
             var order = await _orderRepo.GetByIdAsync(id);
+
             if (order == null)
             {
                 return NotFound();
             }
 
+            
             if (order.Trangthai == "Hủy bỏ")
+               return BadRequest("Order is already cancelled.");
+            
+            // Lấy các món trong đơn hàng
+            var details = await _context.TbChiTietDonHang
+                .Where(d => d.Madh == id)
+                .ToListAsync();
+
+            foreach (var item in details)
             {
-                return BadRequest("Order is already cancelled.");
+                // Hoàn trả số lượng món ăn vào kho
+                await _inventoryService.ImportAsync(item.Mamon, item.Soluong);
             }
 
             order.Trangthai = "Hủy bỏ";
             await _orderRepo.UpdateAsync(order);
 
-            return Ok(new { message = "Order cancelled successfully.", orderId = id, status = order.Trangthai });
+            return Ok(new 
+            { 
+                message = "Order cancelled successfully.", 
+                orderId = id, 
+                status = order.Trangthai 
+            });
         }
     }
 }

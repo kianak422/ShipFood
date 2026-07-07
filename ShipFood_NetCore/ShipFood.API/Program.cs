@@ -7,6 +7,7 @@ using ShipFood.API.Services.Payment; // Factory
 using ShipFood.API.Services.Pricing; // Strategy
 using ShipFood.API.Services.Notification; // Observer
 using ShipFood.API.Services.Order; // Command
+using ShipFood.API.Services.Inventory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Đăng ký Kho chung (Generic) và Kho riêng (Specific)
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITbMonAnRepository, TbMonAnRepository>();
+
+//Tính kho
+builder.Services.AddScoped<IInventoryService,InventoryService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 // 3. Factory Pattern (Mẫu Nhà máy - Tạo đối tượng thanh toán linh hoạt)
 builder.Services.AddTransient<PaymentFactory>();
