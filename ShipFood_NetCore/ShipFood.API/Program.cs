@@ -74,6 +74,9 @@ builder.Services.AddSession(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Thêm HttpClient cho ChatController
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Tự động tạo cơ sở dữ liệu để chạy thử (dễ dàng cho đồ án)
