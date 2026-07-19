@@ -46,7 +46,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasIndex("Mamon");
 
-                    b.ToTable("tbChiTietDonHang");
+                    b.ToTable("tbChiTietDonHang", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbDanhMuc", b =>
@@ -70,7 +70,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Madanhmuc");
 
-                    b.ToTable("tbDanhMuc");
+                    b.ToTable("tbDanhMuc", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbDonHang", b =>
@@ -107,7 +107,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Madh");
 
-                    b.ToTable("tbDonHang");
+                    b.ToTable("tbDonHang", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbKhachHang", b =>
@@ -122,7 +122,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Userid");
 
-                    b.ToTable("tbKhachHang");
+                    b.ToTable("tbKhachHang", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbMonAn", b =>
@@ -181,7 +181,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Mamon");
 
-                    b.ToTable("tbMonAn");
+                    b.ToTable("tbMonAn", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbQuanAn", b =>
@@ -216,7 +216,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Userid");
 
-                    b.ToTable("tbQuanAn");
+                    b.ToTable("tbQuanAn", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbShipper", b =>
@@ -251,7 +251,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Userid");
 
-                    b.ToTable("tbShipper");
+                    b.ToTable("tbShipper", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbTonKho", b =>
@@ -287,7 +287,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasIndex("Mamon");
 
-                    b.ToTable("tbTonKho");
+                    b.ToTable("tbTonKho", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbUser", b =>
@@ -327,7 +327,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Userid");
 
-                    b.ToTable("tbUser");
+                    b.ToTable("tbUser", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbVoucher", b =>
@@ -357,7 +357,7 @@ namespace ShipFood.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TbVoucher");
+                    b.ToTable("TbVoucher", (string)null);
                 });
 
             modelBuilder.Entity("ShipFood.API.Models.TbChiTietDonHang", b =>

@@ -62,6 +62,6 @@ namespace ShipFood.API.Controllers
 
     public class ChatRequest
     {
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
     }
 }

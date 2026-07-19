@@ -26,6 +26,12 @@ namespace ShipFood.API.Models
 
         public decimal GiaBan { get; set; }
 
+        [Column("reorderpoint")]
+        public int ReorderPoint { get; set; } = 10;
+
+        [Column("safetystock")]
+        public int SafetyStock { get; set; } = 5;
+
         [ForeignKey(nameof(Mamon))]
         public TbMonAn? MonAn { get; set; }
     }

@@ -8,6 +8,7 @@ using ShipFood.API.Services.Pricing; // Strategy
 using ShipFood.API.Services.Notification; // Observer
 using ShipFood.API.Services.Order; // Command
 using ShipFood.API.Services.Inventory;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,46 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
+
+// Temporary database update for new columns
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var connection = context.Database.GetDbConnection();
+    await connection.OpenAsync();
+
+    using var command = connection.CreateCommand();
+    command.CommandText = "PRAGMA table_info(tbTonKho)";
+    
+    var columns = new List<string>();
+    using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
+    {
+        columns.Add(reader.GetString(1).ToLower());
+    }
+
+    if (!columns.Contains("reorderpoint"))
+    {
+        await connection.CloseAsync();
+        await connection.OpenAsync();
+        using var addCommand = connection.CreateCommand();
+        addCommand.CommandText = "ALTER TABLE tbTonKho ADD COLUMN reorderpoint INTEGER DEFAULT 10";
+        await addCommand.ExecuteNonQueryAsync();
+        Console.WriteLine("✓ Added reorderpoint column");
+    }
+
+    if (!columns.Contains("safetystock"))
+    {
+        await connection.CloseAsync();
+        await connection.OpenAsync();
+        using var addCommand = connection.CreateCommand();
+        addCommand.CommandText = "ALTER TABLE tbTonKho ADD COLUMN safetystock INTEGER DEFAULT 5";
+        await addCommand.ExecuteNonQueryAsync();
+        Console.WriteLine("✓ Added safetystock column");
+    }
+
+    await connection.CloseAsync();
+}
 
 // Tự động tạo cơ sở dữ liệu để chạy thử (dễ dàng cho đồ án)
 using (var scope = app.Services.CreateScope())

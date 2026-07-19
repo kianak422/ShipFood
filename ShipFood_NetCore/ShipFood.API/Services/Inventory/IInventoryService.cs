@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShipFood.API.Services.Inventory
@@ -13,5 +14,16 @@ namespace ShipFood.API.Services.Inventory
         Task<bool> ImportAsync(int foodId, int quantity);
 
         Task<bool> CancelOrderAsync(int foodId, int quantity);
+
+        // Reorder Point methods
+        Task<bool> ShouldReorderAsync(int foodId);
+        Task<List<Models.TbTonKho>> GetLowStockItemsAsync();
+
+        // FIFO/LIFO cost calculation
+        Task<decimal> CalculateCostFIFOAsync(int foodId, int quantity);
+        Task<decimal> CalculateCostLIFOAsync(int foodId, int quantity);
+
+        // Profit calculation
+        Task<decimal> CalculateProfitAsync(int orderId);
     }
 }
