@@ -24,13 +24,17 @@ namespace ShipFood.API.Controllers
             var apiKey = _configuration["GeminiApiKey"];
             var url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apiKey}";
 
+            // Add new message to history for API call
+            var apiHistory = request.History ?? new List<GeminiMessage>();
+            apiHistory.Add(new GeminiMessage { role = "user", parts = new List<GeminiPart> { new GeminiPart { text = request.Message } } });
+
             var body = new
             {
                 system_instruction = new
                 {
                     parts = new[] { new { text = "Bạn là trợ lý AI của Fastship - nền tảng đặt hàng và giao hàng thức ăn. Trả lời ngắn gọn, thân thiện bằng tiếng Việt. Địa chỉ: 48 Cao Thắng, Hải Châu, Đà Nẵng. Hotline: 0123 456 789." } }
                 },
-                contents = request.History
+                contents = apiHistory
             };
 
             var client = _httpClientFactory.CreateClient();
@@ -41,7 +45,10 @@ namespace ShipFood.API.Controllers
             var responseStr = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
-                return StatusCode((int)response.StatusCode, "Lỗi kết nối AI.");
+            {
+                var errorMsg = $"Lỗi API Gemini: {response.StatusCode} - {responseStr}";
+                return StatusCode((int)response.StatusCode, errorMsg);
+            }
 
             using var doc = JsonDocument.Parse(responseStr);
             var reply = doc.RootElement
